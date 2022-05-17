@@ -39,6 +39,7 @@ class RoomTableController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'name' => 'required',
             'detail' => 'required',

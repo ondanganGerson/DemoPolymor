@@ -2,7 +2,7 @@
 
 @if(session()->has('save'))
   <div class="row" id="save">
-    <div class="alert alert-success">
+    <div class="alert alert-success" width="100%">
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
       <strong>Notification:</strong>{{ session()->get('save') }}
     </div>

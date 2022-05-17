@@ -15,8 +15,9 @@ class PostController extends Controller
      */
     public function index()
     {       
-       $post = Post::get();
-         return view('layouts.admin.blog.index', ['postindex' => $post]);                           
+        $post = Post::get();
+        
+        return view('layouts.admin.blog.index', ['postindex' => $post]);                           
     }
 
     /**
@@ -89,7 +90,7 @@ class PostController extends Controller
             'description' => $request->description
         ]);    
         
-        return redirect()->route('post.index')->with('save', 'Post successfully updated');
+        return redirect()->route('post.index')->with('edit', 'Post successfully updated');
 
     }
 

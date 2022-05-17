@@ -17,7 +17,7 @@
         <div class="card">
             <div class="card-header">
                 <h2>List of Images</h5>
-                <a href="{{route('post.create')}}" class="btn btn-primary pull-right">
+                <a href="{{route('roomtables.create')}}" class="btn btn-primary">
                 <i class="fas fa-user-plus"></i>&nbsp;Add Images
                 </a>        
             </div>
@@ -35,7 +35,7 @@
                 
                             <th>Details</th>
                 
-                            <th width="280px">Action</th>
+                            <th width="280px"  style="text-align: center">Action</th>
                 
                         </tr>
                         
@@ -54,29 +54,20 @@
                                 <td>{{ $rooms->detail }}</td>
                     
                                 <td>
-                    
-                                    <form action="{{ route('roomtables.destroy',$rooms->id) }}" method="POST">
-                    
+                                    <div class="row" style="border: transparent; justify-content:center">
+                                        <form action="{{ route('roomtables.destroy',$rooms->id) }}" method="POST">
+
+                                            <a class="btn btn-info btn-sm" title="show" href="{{ route('roomtables.show',$rooms->id) }}">Show</a>
                         
-                    
-                                        <a class="btn btn-info btn-sm" title="show" href="{{ route('roomtables.show',$rooms->id) }}">Show</a>
-                    
+                                            <a class="btn btn-primary btn-sm" title="edit" href="{{ route('roomtables.edit',$rooms->id) }}">Edit</a>
                         
-                    
-                                        <a class="btn btn-primary btn-sm" title="edit" href="{{ route('roomtables.edit',$rooms->id) }}">Edit</a>
-                    
-                        
-                    
                                         @csrf
                     
                                         @method('DELETE')
-                    
-                            
-                    
-                                        <button type="submit" class="btn btn-danger btn-sm" title="delete">Delete</button>
-                    
-                                    </form>
-                    
+                                            <button type="submit" class="btn btn-danger btn-sm" title="delete">Delete</button>
+                        
+                                        </form>
+                                    </div>
                                 </td>
                     
                             </tr>

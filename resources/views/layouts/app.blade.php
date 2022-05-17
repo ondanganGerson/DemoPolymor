@@ -38,7 +38,7 @@
             @include('layouts.shared.navbar')
 
             <!--sidebar-->
-            @include('layouts.shared.sidebar')
+            @include('layouts.shared.main_sidebar')
 
             <!--content-->
             <div class="content-wrapper">

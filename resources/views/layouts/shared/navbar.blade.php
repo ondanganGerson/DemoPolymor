@@ -15,7 +15,8 @@
         <form action="{{ url('logout') }}" method="POST">
             @csrf
             <button class="nav-link"  role="button">
-                <i title="logout" class="fas fa-angle-right"> {{Auth::user()->name}}</i>
+                {{-- <i title="logout" class="fas fa-angle-right"> {{Auth::user()->name .'-'.'Logout'}}</i> --}}
+                <i title="logout" class="fas fa-angle-right"> Logout</i>
             </button>
         </form> 
        </li>

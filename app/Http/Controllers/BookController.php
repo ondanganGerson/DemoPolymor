@@ -2,21 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Brand;
+use App\Models\Author;
+use App\Models\Book;
 use Illuminate\Http\Request;
 
-class BrandController extends Controller
+class BookController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()    
-    { 
-
-      return redirect()->route('dashboard'); //page.brand.index !exist (deleted)
-        
+    public function index()
+    {
+        //
     }
 
     /**
@@ -37,27 +36,39 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        Book::create([            
+            'author_id' => $request->input('author_id'),
+            'name' => $request->input('name'),            
+        ]);
+
+        return redirect()->route('author.index')->with('book','Books Succesfully Published !');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Brand  $brand
+     * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function show(Brand $brand)
+    public function show(Book $book)
     {
-        //
+       
+      $author = Author::find($book->author_id);
+
+        return view('layouts.admin.book.show',[
+            'book' => $book,
+            'author' => $author
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Brand  $brand
+     * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function edit(Brand $brand)
+    public function edit(Book $book)
     {
         //
     }
@@ -66,10 +77,10 @@ class BrandController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Brand  $brand
+     * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Brand $brand)
+    public function update(Request $request, Book $book)
     {
         //
     }
@@ -77,10 +88,10 @@ class BrandController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Brand  $brand
+     * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Brand $brand)
+    public function destroy(Book $book)
     {
         //
     }

@@ -4,7 +4,7 @@
                 <div class="col-md-6">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Add Room Name</h3>
+                            <h3 class="card-title">Add Author's Book</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body"> 
@@ -18,22 +18,14 @@
                                     </ul>
                                 </div>
                             @endif
-                            <form action="{{ route('roomtables.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('author.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                                 <div class="form-group">                           
                                     <label for="title"><i class="text-danger">*</i>Name:</label>
                                     <input type="text" class="form-control" name="name" required/>
                                 </div>
-                                <div class="form-group">
-                                    <label for="description"><i class="text-danger">*</i>Detail:</label>
-                                    <textarea class="form-control" name="detail" required></textarea>
-                                </div>
-                                <div class="form-group">  
-                                    <strong>Room Image:</strong>                    
-                                    <input type="file" name="image" class="form-control" placeholder="image"> 
-                                </div>
                                 <button type="submit" class="btn btn-primary float-left">Save</button>
-                                <a type="button" href="{{ route('roomtables.index') }}" class="btn btn-danger float-right">Cancel</a>
+                                <a type="button" href="{{ route('author.index') }}" class="btn btn-danger float-right">Cancel</a>
                             </form>                            
                         </div>
                         <!-- /.card-body -->

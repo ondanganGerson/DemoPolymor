@@ -2,21 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Brand;
+use App\Models\Retings;
 use Illuminate\Http\Request;
 
-class BrandController extends Controller
+class RetingsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()    
-    { 
-
-      return redirect()->route('dashboard'); //page.brand.index !exist (deleted)
-        
+    public function index()
+    {
+        //
     }
 
     /**
@@ -37,16 +35,22 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        Retings::create([
+            'rate' => $request->input('rate'),
+            'book_id' => $request->input('book_id')
+        ]);
+
+        return redirect()->route('author.index')->with('rate', 'Book has been successfully rated!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Brand  $brand
+     * @param  \App\Models\Retings  $retings
      * @return \Illuminate\Http\Response
      */
-    public function show(Brand $brand)
+    public function show(Retings $retings)
     {
         //
     }
@@ -54,10 +58,10 @@ class BrandController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Brand  $brand
+     * @param  \App\Models\Retings  $retings
      * @return \Illuminate\Http\Response
      */
-    public function edit(Brand $brand)
+    public function edit(Retings $retings)
     {
         //
     }
@@ -66,10 +70,10 @@ class BrandController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Brand  $brand
+     * @param  \App\Models\Retings  $retings
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Brand $brand)
+    public function update(Request $request, Retings $retings)
     {
         //
     }
@@ -77,10 +81,10 @@ class BrandController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Brand  $brand
+     * @param  \App\Models\Retings  $retings
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Brand $brand)
+    public function destroy(Retings $retings)
     {
         //
     }

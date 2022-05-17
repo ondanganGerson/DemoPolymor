@@ -1,26 +1,39 @@
 <?php
 
 namespace App\Http\Controllers;
+trait display{                               //traits use include if traits is in folder or use path
+    protected function traitsData($message){
+        return $message;
+    }
+}
 
 use App\Models\Name;
 use Illuminate\Http\Request;
 
 class NameController extends Controller
 {   
-    public function getFirstName()                 //accessor or getter
-    {                                              //get the data and alter it,      then show it to view
-        $name = Name::get();
+    use display;                             //using traits
 
-        foreach ($name as $name)
-        {
-            echo $name->first_name . "</br>";      // you can return a view now since it has a data to show
-        }                                          //see the result when refresh the localhost
+    public function displaytraitsdata(){     //display traits
+       return $this->traitsData('hello gerson'); //return or echo just the same
     }
 
-    public function getLastName()                 
+    
+
+    public function showFirstName()              
+    {                                             
+        $name = Name::get();
+
+        foreach ($name as $name)            //no view created for sample only
+        {
+            echo $name->first_name . "</br>";     
+        }                                         
+    }
+
+    public function showLastName()                 
     {
         $lastname = Name::get();
-       foreach ($lastname as $lastname)            //defined from index()
+       foreach ($lastname as $lastname)            
        {
            echo $lastname->last_name . "</br>";
        }
@@ -33,6 +46,7 @@ class NameController extends Controller
      */
     public function index()
     { 
+
         // $name = Name::get();
         // // $name = Name::all()->sortBy('full_name');
        

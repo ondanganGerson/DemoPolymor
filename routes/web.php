@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController; 
 use App\Http\Controllers\CommentController; 
@@ -16,7 +15,9 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\User;
 use App\Http\Controllers\HomeController;
-
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\RetingsController;
 
 // use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Redirect;
@@ -46,7 +47,8 @@ Route::middleware('auth')->group(function () {
     Route::get('add-to-log', [HomeController::class, 'myTestAddToLog'])->name('add-to-log');
     Route::get('logActivity', [HomeController::class, 'logActivity'])->name('logActivity');
             
-    Route::prefix('blog')->group(function () {  
+    Route::prefix('blog')->group(function () {      
+                    //url                                       //route
         Route::get('/', [PostController::class, 'index'])->name('post.index');
         Route::get('create', [PostController::class, 'create'])->name('post.create');
         Route::post('/', [PostController::class, 'store'])->name('post.store');
@@ -54,10 +56,34 @@ Route::middleware('auth')->group(function () {
         Route::get('{post}/edit', [PostController::class, 'edit'])->name('post.edit');
         Route::put('{post}', [PostController::class, 'update'])->name('post.update');
         Route::delete('{post}', [PostController::class, 'destroy'])->name('post.destroy');
+        //post,put,delete,patch need @csrf
     });
     Route::prefix('comments')->group(function () {                                
         Route::post('blog-comment', [CommentController::class, 'store'])->name('blog-comment');
     }); 
+
+    //author       
+     Route::prefix('author')->group(function () {
+        Route::get('/', [AuthorController::class, 'index'])->name('author.index');
+        Route::get('create', [AuthorController::class, 'create'])->name('author.create');
+        Route::post('/', [AuthorController::class, 'store'])->name('author.store');
+        Route::get('{author}', [AuthorController::class, 'show'])->name('author.show');
+        Route::get('{author}/edit', [AuthorController::class, 'edit'])->name('author.edit');
+        Route::put('{author}', [AuthorController::class, 'update'])->name('author.update');
+        Route::delete('/', [AuthorController::class, 'destroy'])->name('author.destroy');
+    });
+
+    //book
+    Route::prefix('book')->group(function () {
+        Route::post('/', [BookController::class, 'store'])->name('book.store');
+        Route::get('{book}', [BookController::class, 'show'])->name('book.show');
+    });
+
+    //rate
+    Route::prefix('rate')->group(function () {
+        Route::post('/', [RetingsController::class, 'store'])->name('rate.store');
+    });
+    
 
 
 
@@ -67,11 +93,11 @@ Route::middleware('auth')->group(function () {
     
     //student
     Route::resource('classs',ClasssController::class);
-    Route::post('post-comment', [StudentCommentController::class, 'store'])->name('post-comment');
+    // Route::post('post-comment', [StudentCommentController::class, 'store'])->name('post-comment');
 
     //client
     Route::resource('client',ClientController::class);
-    Route::post('client-comment',[ClientCommentController::class, 'store'])->name('client-comment');
+    // Route::post('client-comment',[ClientCommentController::class, 'store'])->name('client-comment');
             // '/client/comment'
          
 
@@ -83,13 +109,27 @@ Route::middleware('auth')->group(function () {
     // });
     Route::post('car-model', [CarModelController::class, 'store'])->name('car-model'); //relation of carmodel
 
+
+
+
+
+
     //name
     // Route::resource('name', NameController::class);
-    Route::get('/name',[NameController::class, 'index'])->name('name.index');  //setters route  
-                                                     //controller method                       //views
-    Route::get('/name-firstname',[NameController::class, 'getFirstName'])->name('name-firstname-getname'); //getters route
-    Route::get('/name-lastname', [NameController::class, "getLastName"])->name('name-lastname-getnamename');
+    Route::get('/traits',[NameController::class, 'displaytraitsdata'])->name('traits');
+    Route::get('/name',[NameController::class, 'index'])->name('name.index');  //setters route                                                    
+    Route::get('/name-firstname',[NameController::class, 'showFirstName'])->name('name-firstname-getname'); //getters route
+    Route::get('/name-lastname', [NameController::class, "showLastName"])->name('name-lastname-getnamename');
     Route::get('/name-view/{name}', [NameController::class, 'view'])->name('name-view'); //?
+
+    
+
+
+
+
+
+
+
 
     //Rooms
     // Route::resource('room', RoomsController::class);        //route views must the same 
