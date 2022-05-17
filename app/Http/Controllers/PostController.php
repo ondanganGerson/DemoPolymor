@@ -14,20 +14,9 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {        //model Post::get(); passing to view with fillable
+    {       
        $post = Post::get();
-       
-
-       
-                                                
-                                                //$post passing data created to to postindex from create to store() to index()
-                                                //postindex has data and pass it to index.blade as requested with data filled
-         return view('layouts.admin.blog.index', ['postindex' => $post]       );    
-                                                /*or compact('data')*/
-                                                 //or ->with('data',$data);
-
-                                              
-                                                           
+         return view('layouts.admin.blog.index', ['postindex' => $post]);                           
     }
 
     /**
@@ -35,8 +24,7 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-      
+    public function create()      
     {
         return view('layouts.admin.blog.create');
     }
@@ -55,16 +43,12 @@ class PostController extends Controller
         //  return redirect('postssss');  //redirect to (post.index)
 
          //or
-        
-            // new Post(models)
         $post = new Post(); 
         $post->title = $request->input('title');
-              //name of input   
         $post->description = $request->input('description');
-              
         $post->save();
 
-        return redirect()->route('post.index')->with('save', 'Post successfully stored'); // redirect to (post.index);
+        return redirect()->route('post.index')->with('save', 'Post successfully stored'); 
       
     }
 
@@ -75,15 +59,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Post $post)
-    
-    {
-        // $comment = new Comment(['message' => 'A new comment.']);
-
-        //  $post = Post::find(1);
-
-        //  $post->comments()->save($comment);     
-        // return Post::find($post)->comments;
-        //  dd($post);                                   with data filled pass to view as requested
+    {       
         return view('layouts.admin.blog.show', ['post' => $post]);
     }
 
@@ -93,7 +69,6 @@ class PostController extends Controller
      * @param  \App\Models\post  $post
      * @return \Illuminate\Http\Response
      */
-    // public function edit(post $post)
     public function edit(Post $post)
     {
         return view('layouts.admin.blog.edit', ['post' => $post]);
@@ -109,15 +84,10 @@ class PostController extends Controller
     // public function update(Request $request, post $post)
     public function update(Request $request, Post $post)
     {
-        $post->update(['title'       => $request->title,              //no need to validate the Request
-                       'description' => $request->description]);    
-        
-        //or   
-
-              
-        // $post->title = $request->input('title');
-        // $post->description = $request->input('description');
-        // $post->save();
+        $post->update([
+            'title' => $request->title,         
+            'description' => $request->description
+        ]);    
         
         return redirect()->route('post.index')->with('save', 'Post successfully updated');
 

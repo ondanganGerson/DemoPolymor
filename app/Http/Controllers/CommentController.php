@@ -36,15 +36,13 @@ class CommentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {  
-                 //new Comment(models)          
-        $comment = new Comment();          //defining comment to send to show as requested
+    {     
+        $comment = new Comment();     
         $comment->comment = $request->input('comment');
         $comment->post_id = $request->input('post_id');
         $comment->save();
-
-        // dd($comment);            //define a $comment if you have something to send to show.blade
-        return redirect()->route('post.show', $comment->post_id);  //showing comment object
+        
+        return redirect()->route('post.show', $comment->post_id); 
 
         
     }

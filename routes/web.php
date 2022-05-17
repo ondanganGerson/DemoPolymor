@@ -42,21 +42,11 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-// Route::middleware('auth')->group(static function () {
-//     Route::resource('post',PostController::class);
-
-
-
 Route::middleware('auth')->group(function () {
-    //LogActivity
     Route::get('add-to-log', [HomeController::class, 'myTestAddToLog'])->name('add-to-log');
     Route::get('logActivity', [HomeController::class, 'logActivity'])->name('logActivity');
-    
-    // post routes
-                 //name whatever you want for url
-    Route::prefix('postssss')->group(function () {  
-                                                      
-          //method // url                                //name method is to redirect to specific routes
+            
+    Route::prefix('blog')->group(function () {  
         Route::get('/', [PostController::class, 'index'])->name('post.index');
         Route::get('create', [PostController::class, 'create'])->name('post.create');
         Route::post('/', [PostController::class, 'store'])->name('post.store');
@@ -65,13 +55,17 @@ Route::middleware('auth')->group(function () {
         Route::put('{post}', [PostController::class, 'update'])->name('post.update');
         Route::delete('{post}', [PostController::class, 'destroy'])->name('post.destroy');
     });
-
-    // comment routes
-    Route::prefix('comments')->group(function () {
-            //method request -> controller                                     
-        Route::post('comment-store', [CommentController::class, 'store'])->name('comment-store');
+    Route::prefix('comments')->group(function () {                                
+        Route::post('blog-comment', [CommentController::class, 'store'])->name('blog-comment');
     }); 
 
+
+
+
+
+
+    
+    //student
     Route::resource('classs',ClasssController::class);
     Route::post('post-comment', [StudentCommentController::class, 'store'])->name('post-comment');
 
@@ -115,7 +109,7 @@ Route::middleware('auth')->group(function () {
 
 
     //brand
-    // Route::resource('brand', BrandController::class);
+    // Route::resource('brand', BrandController::class); or you can use resource 
     Route::get('/', [BrandController::class, 'index'])->name('brand.index');    
     Route::get('create', [BrandController::class, 'create'])->name('brand.create');
     Route::post('/', [BrandController::class, 'store'])->name('brand.store');
