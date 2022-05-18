@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+//demo
 trait display{                               //traits use include if traits is in folder or use path
     protected function traitsData($message){
         return $message;
