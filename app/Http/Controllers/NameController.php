@@ -1,22 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-//demo 
-trait display{                               //traits use include if traits is in folder or use path
-    protected function traitsData($message){
-        return $message;
-    }
-}
 
+use App\Traits\DisplayTrait;  //traits
 use App\Models\Name;
 use Illuminate\Http\Request;
 
 class NameController extends Controller
 {   
-    use display;                             //using traits
+    use DisplayTrait;                    //using traits
 
-    public function displaytraitsdata(){     //display traits
-       return $this->traitsData('hello gerson'); //return or echo just the same
+    public function displaytraitsdata(){     //display traits, called from routes
+       return $this->traitsData('hello gerson pogi'); //return or echo messages
     }
 
     

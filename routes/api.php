@@ -19,5 +19,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-//postman
-Route::get('/postman',[PostmanController::class, 'postapi'])->name('postman');
+//get all room table
+Route::get('/room',[PostmanController::class, 'getRoom'])->name('room');
+//get all room table by id
+Route::get('/roomById/{id}',[PostmanController::class, 'getRoomById'])->name('roomById');
+//add new room table 
+Route::post('/addRoom',[PostmanController::class, 'addNewRoom'])->name('addRoom'); 
+//delete room
+Route::delete('/deleteRoom/{id}',[PostmanController::class, 'RemoveRoom'])->name('deleteRoom');
