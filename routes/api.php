@@ -25,5 +25,7 @@ Route::get('/room',[PostmanController::class, 'getRoom'])->name('room');
 Route::get('/roomById/{id}',[PostmanController::class, 'getRoomById'])->name('roomById');
 //add new room table 
 Route::post('/addRoom',[PostmanController::class, 'addNewRoom'])->name('addRoom'); 
+//update room
+Route::put('/updateRooms/{id}',[PostmanController::class, 'updateRoom'])->name('updateRooms'); 
 //delete room
 Route::delete('/deleteRoom/{id}',[PostmanController::class, 'RemoveRoom'])->name('deleteRoom');
