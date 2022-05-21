@@ -29,3 +29,8 @@ Route::post('/addRoom',[PostmanController::class, 'addNewRoom'])->name('addRoom'
 Route::put('/updateRooms/{id}',[PostmanController::class, 'updateRoom'])->name('updateRooms'); 
 //delete room
 Route::delete('/deleteRoom/{id}',[PostmanController::class, 'RemoveRoom'])->name('deleteRoom');
+
+
+// you can use api resource and resource controller like just like resource in web.route
+
+Route::apiResource('apiResourceSample',[PostmanController::class]); //not use
