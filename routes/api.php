@@ -33,4 +33,4 @@ Route::delete('/deleteRoom/{id}',[PostmanController::class, 'RemoveRoom'])->name
 
 // you can use api resource and resource controller like just like resource in web.route
 
-Route::apiResource('apiResourceSample',[PostmanController::class]); //not use
+// Route::apiResource('apiResourceSample',[PostmanController::class]); //not use
