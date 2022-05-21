@@ -3,6 +3,7 @@
 use App\Http\Controllers\ApiController\AuthorController as ApiControllerAuthorController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\PostmanController;
+use App\Http\Controllers\ApiController\PhoneController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -42,3 +43,9 @@ Route::get('showAuthor/{id}', [ApiControllerAuthorController::class, 'show'])->n
 Route::post('/storeAuthor', [ApiControllerAuthorController::class, 'store'])->name('storeAuthor');  //store
 Route::put('updateAuthor/{id}', [ApiControllerAuthorController::class, 'update'])->name('updateAuthor'); //
 Route::delete('/deleteAuthor/{id}', [ApiControllerAuthorController::class, 'destroy'])->name('deleteAuthor');
+
+//phone
+Route::apiResource('phones',PhoneController::class);
+Route::prefix('/phones')->group(function() {
+    Route::apiResource('/{id}/review',PhoneController::class);
+});
