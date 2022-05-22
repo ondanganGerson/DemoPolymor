@@ -4,6 +4,7 @@ use App\Http\Controllers\ApiController\AuthorController as ApiControllerAuthorCo
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\PostmanController;
 use App\Http\Controllers\ApiController\PhoneController;
+use App\Http\Controllers\ApiController\ReviewController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,9 +35,6 @@ Route::put('/updateRooms/{id}',[PostmanController::class, 'updateRoom'])->name('
 Route::delete('/deleteRoom/{id}',[PostmanController::class, 'RemoveRoom'])->name('deleteRoom');
 
 
-// you can use api resource and resource controller like just like resource in web.route
-
-
 // Route::apiResource('/author',AuthorController::class);
 Route::get('/author', [ApiControllerAuthorController::class, 'index'])->name('author'); //all
 Route::get('showAuthor/{id}', [ApiControllerAuthorController::class, 'show'])->name('showAuthor');  //show by id
@@ -44,8 +42,10 @@ Route::post('/storeAuthor', [ApiControllerAuthorController::class, 'store'])->na
 Route::put('updateAuthor/{id}', [ApiControllerAuthorController::class, 'update'])->name('updateAuthor'); //
 Route::delete('/deleteAuthor/{id}', [ApiControllerAuthorController::class, 'destroy'])->name('deleteAuthor');
 
+
 //phone
 Route::apiResource('phones',PhoneController::class);
+//review
 Route::prefix('/phones')->group(function() {
-    Route::apiResource('/{id}/review',PhoneController::class);
+    Route::apiResource('/{id}/review',ReviewController::class);
 });

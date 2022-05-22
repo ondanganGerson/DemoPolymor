@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Http\Resources\Json\JsonResource; //from ResourceCollection to JsonResource
 
-class Phone extends ResourceCollection
+class Phone extends  JsonResource  //from ResourceCollection to JsonResource
 {
     /**
      * Transform the resource collection into an array.
@@ -17,12 +17,10 @@ class Phone extends ResourceCollection
         return 
         [
             'name' => $this->name,
-            'model' => $this->model,
             'price' => $this->price,
             //prevent error 0 division if no rates yet
-            'ratings' => $this->review->sum('star') > 0 ? round($this->review->sum('star')/$this->review->count(), 2) : 'No Ratings Yet!',
-            //make another controller for review.index     
-            'href' => [ 'reviews' => route('review.index', $this->id)]       
+            'ratings' => $this->review->sum('star') > 0 ? round($this->review->sum('star')/$this->review->count(), 2) : 'No Ratings Yet!',        
+            'href' => [ 'reviews' => route('phones.show', $this->id)]       
         ];
     }
 }
