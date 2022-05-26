@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\RoomTable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class RoomTableController extends Controller
 {
@@ -14,7 +15,7 @@ class RoomTableController extends Controller
      */
     public function index()
     {
-        $room = RoomTable::latest()->paginate(5);
+        $room = RoomTable::latest()->paginate(15);
        
     
         return view('layouts.admin.roomtables.index',compact('room'))
@@ -39,26 +40,51 @@ class RoomTableController extends Controller
      */
     public function store(Request $request)
     {
+        
+      
         // dd($request->all());
-        $request->validate([
-            'name' => 'required',
-            'detail' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+        // $request->validate([
+        //     'name' => 'required',
+        //     'detail' => 'required',
+        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        // ]);
   
-        $input = $request->all();
+        // $input = $request->all();
   
-        if ($image = $request->file('image')) {
-            $destinationPath = 'image/';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
-            $input['image'] = "$profileImage";
-        }
+        // if ($image = $request->file('image')) {
+        //     $destinationPath = 'image/';
+        //     $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+        //     $image->move($destinationPath, $profileImage);
+        //     $input['image'] = "$profileImage";
+        // }
     
-        RoomTable::create($input);
+        $room = new RoomTable();
+        $room->name = $request->name;
+        $room->detail = $request->detail;
+        $room->image = $request->image;
+        $room->save();
+
+        return response()->json($room);
+
      
-        return redirect()->route('roomtables.index')
-                         ->with('success','pre! created successfully.');
+        // return redirect()->route('roomtables.index')
+        //                  ->with('success','pre! created successfully.');
+
+        //ajax
+        // $validate = Validator::make($request->all(), [
+        //     'name' => 'required',
+        //     'detail' => 'requured',
+        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        // ]);
+
+        // if(is_null($input)) {
+        //     return response()->json(['errors'=>'invalid validation'],400);
+        // }else{
+        //     RoomTable::create($input);
+        // }
+
+        // return redirect()->route('roomtables.index')
+        //                  ->with('success','pre! created successfully.');
     }
 
     /**i

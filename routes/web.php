@@ -140,7 +140,7 @@ Route::middleware('auth')->group(function () {
     // Route::resource('room-tables', [RoomTables::class]);             //for routes() use not for view(), if view() use view('layouts.admin.roomtables.index')
     Route::get('/roomtables', [RoomTableController::class, 'index'])->name('roomtables.index');
     Route::get('roomtables.create', [RoomTableController::class, 'create'])->name('roomtables.create');
-    Route::post('roomtables,store', [RoomTableController::class, 'store'])->name('roomtables.store');
+    Route::post('roomtables.store', [RoomTableController::class, 'store'])->name('roomtables.store');
     Route::get('{roomTable}', [RoomTableController::class, 'show'])->name('roomtables.show');
     Route::get('{roomTable}/edit', [RoomTableController::class, 'edit'])->name('roomtables.edit');
     Route::put('{roomTable}', [RoomTableController::class, 'update'])->name('roomtables.update');
