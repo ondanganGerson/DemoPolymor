@@ -41,8 +41,6 @@
                         <strong>Room Image:</strong>                    
                         <input type="file" name="image" id="image" class="form-control" placeholder="image"> 
                     </div>
-                    {{-- <button type="submit" id="load-ajax" class="btn btn-primary float-left">Save</button>
-                    <a type="button" href="{{ route('roomtables.index') }}" class="btn btn-danger float-right">Cancel</a> --}}
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" id="save" class="btn btn-primary">Save changes</button>
@@ -58,8 +56,7 @@
         <div class="card">
             <div class="card-header">
                 <h2>List of Images</h5>
-                {{-- <a href="{{route('roomtables.create')}}" class="btn btn-primary"></a>
-                <i class="fas fa-user-plus"></i>&nbsp;Add --}}
+                    <!--call modal form-->
                 <a href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add</a>        
             </div>
             <!-- /.card-header -->
@@ -67,7 +64,6 @@
                 <table class="table table-bordered table-hover" id="blog-table">
                     <thead>
                         <tr>
-                            {{-- <th>No</th> --}}
                             <th>Name</th>                
                             <th>Details</th>        
                             <th style="width: 15%">Image</th>             
@@ -75,10 +71,8 @@
                         </tr>                        
                     </thead>
                     <tbody>      
-                        {{-- @php($counter = 0) --}}
                         @foreach ($room as $rooms)
                             <tr>                    
-                                {{-- <td>{{++$counter}}</td> --}}
                                 <td>{{ $rooms->name }}</td>
                                 <td>{{ $rooms->detail }}</td>                    
                                 <td><img src="/image/{{ $rooms->image }}" width="100%"></td>
@@ -117,7 +111,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            //sending request to POST/CREATE
+            //sending request to POST/STORE
             $.ajax({ 
                 url: "{{url('/roomtables.store')}}",
                 type: "POST",
