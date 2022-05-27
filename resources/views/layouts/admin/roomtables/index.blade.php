@@ -6,8 +6,8 @@
         </div>
     @endif
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!-- for Modal -->
+    {{-- <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -27,7 +27,7 @@
                         </ul>
                     </div>
                 @endif
-                <form id="form_id" >
+                <form id="form_id" action="{{ route('roomtables.store') }}" method="POST" enctype="multipart/form-data" >
                 @csrf
                     <div class="form-group">                           
                         <label for="title"><i class="text-danger">*</i>Name:</label>
@@ -41,27 +41,25 @@
                         <strong>Room Image:</strong>                    
                         <input type="file" name="image" id="image" class="form-control" placeholder="image"> 
                     </div>
-                    {{-- <button type="submit" id="load-ajax" class="btn btn-primary float-left">Save</button>
-                    <a type="button" href="{{ route('roomtables.index') }}" class="btn btn-danger float-right">Cancel</a> --}}
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" id="save" class="btn btn-primary">Save changes</button>
+                        <button type="submit" id="load-ajax" class="btn btn-primary float-left">Save</button>
+                        <a type="button" href="{{ route('roomtables.index') }}" class="btn btn-danger float-right">Cancel</a>
+                      
                     </div>
                 </form>     
             </div>           
         </div>
         </div>
-    </div>
-    <!--end modal-->
+    </div> --}}
+    <!--end for modal-->
 
     <div class="container-fluid">
         <div class="card">
             <div class="card-header">
                 <h2>List of Images</h5>
-                {{-- <a href="{{route('roomtables.create')}}" class="btn btn-primary"></a>
-                <i class="fas fa-user-plus"></i>&nbsp;Add --}}
-                <a href="#" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Add</a>        
+                <a href="{{route('roomtables.create')}}" class="btn btn-primary">  <i class="fas fa-user-plus"></i>&nbsp;Add</a>
             </div>
+            
             <!-- /.card-header -->
             <div class="card-body">
                 <table class="table table-bordered table-hover" id="blog-table">
@@ -103,7 +101,8 @@
     </div>
 </x-app-layout> 
 <!--you can separate scripts to another folder-->
-<script>  
+<!--for modal and jquery ajax-->
+{{-- <script>  
     $(document).ready(function() {
         $('#form_id').submit(function(e) {
             e.preventDefault();    
@@ -133,5 +132,5 @@
             });
         });
     });
-</script>
+</script> --}}
 

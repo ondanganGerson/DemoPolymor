@@ -43,48 +43,36 @@ class RoomTableController extends Controller
         
       
         // dd($request->all());
-        // $request->validate([
-        //     'name' => 'required',
-        //     'detail' => 'required',
-        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        // ]);
+        $request->validate([
+            'name' => 'required',
+            'detail' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
   
-        // $input = $request->all();
+        $input = $request->all();
   
-        // if ($image = $request->file('image')) {
-        //     $destinationPath = 'image/';
-        //     $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-        //     $image->move($destinationPath, $profileImage);
-        //     $input['image'] = "$profileImage";
-        // }
-    
-        $room = new RoomTable();
-        $room->name = $request->name;
-        $room->detail = $request->detail;
-        $room->image = $request->image;
-        $room->save();
+        if ($image = $request->file('image')) {
+            $destinationPath = 'image/';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $input['image'] = "$profileImage";
+        }   
 
-        return response()->json($room);
-
-     
-        // return redirect()->route('roomtables.index')
-        //                  ->with('success','pre! created successfully.');
+         if(is_null($input)) {
+            return response()->json(['errors'=>'invalid validation'],400);
+        }else{
+            RoomTable::create($input);
+        }
+        
+        return redirect()->route('roomtables.index')
+                         ->with('success','pre! created successfully.');
 
         //ajax
-        // $validate = Validator::make($request->all(), [
-        //     'name' => 'required',
-        //     'detail' => 'requured',
-        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        // ]);
-
-        // if(is_null($input)) {
-        //     return response()->json(['errors'=>'invalid validation'],400);
-        // }else{
-        //     RoomTable::create($input);
-        // }
-
-        // return redirect()->route('roomtables.index')
-        //                  ->with('success','pre! created successfully.');
+        // $room = new RoomTable();
+        // $room->name = $request->name;
+        // $room->detail = $request->detail;
+        // $room->image = $request->image;
+        // $room->save();
     }
 
     /**i
