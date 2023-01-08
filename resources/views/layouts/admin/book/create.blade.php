@@ -1,5 +1,4 @@
 <x-app-layout>
-    <br><br>
     <div class="container-fluid mt-5"> 
             <div class="row justify-content-center">
                 <div class="col-md-6">
@@ -18,21 +17,19 @@
                                         @endforeach
                                     </ul>
                                 </div>
-                            @endif
-                            <div class="form-group">
-                                <p>Author's Name: {{$author->name}}</p>
-                            </div>
+                            @endif                            
                             <form action="{{ route('book.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                                <div class="form-group">                                  
-                                    <input type="hidden" class="form-control" name="author_id" value="{{$author->id}}">
+                                <div class="form-group">                           
+                                    <label for="title"><i class="text-danger">*</i>Author's Name:</label>
+                                    <input type="text" class="form-control" name="author_id" required/>
                                 </div>
                                 <div class="form-group">                           
-                                    <label for="title"><i class="text-danger">*</i>Book:</label>
-                                    <input type="text" placeholder="Book's Name" class="form-control" name="name" required/>
+                                    <label for="title"><i class="text-danger">*</i>Book Title:</label>
+                                    <input type="text" class="form-control" name="name" required/>
                                 </div>
                                 <button type="submit" class="btn btn-primary float-left">Save</button>
-                                <a type="button" href="{{ route('author.index') }}" class="btn btn-danger float-right">Cancel</a>
+                                <a type="button" href="{{ route('book.index') }}" class="btn btn-danger float-right">Cancel</a>
                             </form>                            
                         </div>
                         <!-- /.card-body -->

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Author;
+use App\Models\Book;
 use Illuminate\Http\Request;
 
 class AuthorController extends Controller
@@ -69,8 +70,8 @@ class AuthorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Author $author)
-    {
-        //
+    {          
+       return view('layouts.admin.author.edit')->with('author',$author);
     }
 
     /**
@@ -81,8 +82,11 @@ class AuthorController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Author $author)
-    {
-        //
+    {      
+        $author->name = $request->input('name');
+        $author->save();
+
+        return redirect()->route('author.index')->with('edit', 'Authors Successfully Updated!');
     }
 
     /**
@@ -93,6 +97,8 @@ class AuthorController extends Controller
      */
     public function destroy(Author $author)
     {
-        //
+        $author->delete();
+
+        return redirect()->route('author.index')->with('delete', 'Records Successfully Deleted!');
     }
 }

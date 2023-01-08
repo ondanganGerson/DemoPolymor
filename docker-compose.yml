@@ -1,0 +1,94 @@
+version: '3.8'
+
+services:
+
+    # Webserver Services
+    webserver:
+        image: httpd:latest
+        container_name: polymorphic_apache
+        restart: unless-stopped
+        ports:
+            - "8080:80"
+        volumes:
+            - .:/var/www/html
+        depends_on:
+            - php
+            - mysql
+        networks:
+            - laraveldockerize
+
+    # MySQL Services
+    mysql:
+        image: mysql:5.7
+        container_name: polymorphic_mysql
+        restart: always
+        # tty: true
+        ports:
+            - "33061:3306"
+        environment:
+            MYSQL_DATABASE: ${DB_DATABASE}
+            # MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            # MYSQL_PASSWORD: ${DB_PASSWORD}
+            # MYSQL_USER: ${DB_USERNAME}
+            # SERVICE_TAGS: dev
+            # SERVICE_NAME: mysql
+            # MYSQL_DATABASE: 'polymorphic-server02'
+            MYSQL_ALLOW_EMPTY_PASSWORD: 1
+            MYSQL_PASSWORD: ""
+        # volumes:
+        #     - ./dockerize/mysql/data:/var/lib/mysql
+        networks:
+            - laraveldockerize
+
+    # PHP Services
+    php:
+        build:
+            context: .
+            dockerfile: ./.docker/Dockerfile
+        container_name: polymorphic_php
+        volumes:
+            - .:/var/www/html
+        ports:
+            - 9000:80
+        networks:
+            - laraveldockerize
+
+    # Composer Services
+    composer:
+        image: composer:latest
+        container_name: polymorphic_composer
+        volumes:
+            - .:/var/www/html
+        working_dir: /var/www/html
+        depends_on:
+            - php
+        networks:
+            - laraveldockerize
+
+    # NPM Services
+    npm:
+        image: node:14.9
+        container_name: polymorphic_npm
+        volumes:
+            - .:/var/www/html
+        working_dir: /var/www/html
+        entrypoint: ['npm']
+
+    # Artisan Services
+    artisan:
+        build:
+            context: .
+            dockerfile: ./.docker/Dockerfile
+        container_name: polymorphic_artisan
+        volumes:
+            - .:/var/www/html
+        depends_on:
+            - mysql
+        working_dir: /var/www/html
+        entrypoint: ['php', '/var/www/html/artisan']
+        networks:
+            - laraveldockerize
+
+# Docker Network
+networks:
+    laraveldockerize:

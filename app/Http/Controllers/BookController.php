@@ -15,7 +15,14 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        $books = Book::with('getAuthor', 'getRates')
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->toArray();
+
+        return view('layouts.admin.book.index', [
+            'books' => $books
+        ]);
     }
 
     /**
@@ -24,8 +31,8 @@ class BookController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        //
+    {       
+        return view('layouts.admin.book.create');
     }
 
     /**
@@ -36,13 +43,17 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        Book::create([            
-            'author_id' => $request->input('author_id'),
-            'name' => $request->input('name'),            
+    
+        $author = Author::create([
+            'name' => $request->input('author_id'),
+        ]);     
+
+        Book::create([
+            'author_id' => $author->id,
+            'name' => $request->input('name'),
         ]);
 
-        return redirect()->route('author.index')->with('book','Books Succesfully Published !');
+        return redirect()->route('book.index')->with('book', 'Books Succesfully created !');
     }
 
     /**
@@ -51,12 +62,13 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
+
+    //Rate books
     public function show(Book $book)
     {
-       
-      $author = Author::find($book->author_id);
+        $author = Author::find($book->author_id);
 
-        return view('layouts.admin.book.show',[
+        return view('layouts.admin.book.show', [
             'book' => $book,
             'author' => $author
         ]);
@@ -70,7 +82,12 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
+        // $books = Book::find($book);
+
+        return view('layouts.admin.book.edit', [
+            'books' => $book,
+
+        ]);
     }
 
     /**
@@ -80,9 +97,40 @@ class BookController extends Controller
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Book $book)
-    {
-        //
+    public function update(Request $request, $id)
+    {       
+        
+        $book = Book::find($id);       
+        $author = Author::find($book->author_id);
+
+       if($book){
+        $book->name = $request->input('name');
+        $book->author_id = $request->input('author_id');
+        $book->save();        
+       }
+
+       if($author) {
+        $author->name = $request->input('author');
+        $author->save();
+       }
+        
+
+        // $author = Author::where('id', $request->input('author_id'))->get();
+        // if($author){
+        //     $author->name = $request->input('author');
+        //     $author->save();
+           
+        // }
+      
+        // $author->update([
+        //     'name' => $request->input('author')
+        // ]);         
+
+        // $book->name = $request->input('name');
+        // $book->author_id = $author->id;
+        // $book->save();
+
+        return redirect()->route('book.index')->with('edit', 'Records successfully updated');
     }
 
     /**
@@ -93,6 +141,27 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->delete();
+
+        return redirect()->route('book.index')->with('delete', 'Records successfully deleted');
+    }
+
+    public function addbook($id)
+    {
+        $author = Author::find($id);
+        
+        return view('layouts.admin.book.addbook', [
+            'author' => $author
+        ]);
+    }
+
+    public function storebook(Request $request) 
+    {
+        Book::create([
+            'name' => $request->input('name'),
+            'author_id' => $request->input('author_id'),
+        ]);
+
+        return redirect()->route('book.index')->with('edit', 'Book successfully added');
     }
 }

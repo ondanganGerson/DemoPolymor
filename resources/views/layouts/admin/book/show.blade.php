@@ -20,11 +20,11 @@
                             @endif
                             <div class="form-group">                           
                                 <label for="title"><i class="text-danger"></i>Author's Name:</label>
-                                <input type="text" class="form-control"  value="{{$author->name}}"/>
+                                <input type="text" class="form-control"  value="{{$author->name}}" readonly/>
                             </div>
                             <div class="form-group">                           
                                 <label for="title"><i class="text-danger"></i>Books Name:</label>
-                                <input type="text" class="form-control" value="{{$book->name}}"/>
+                                <input type="text" class="form-control" value="{{$book->name}}" readonly/>
                             </div>
                             
                             <form action="{{ route('rate.store') }}" method="POST" enctype="multipart/form-data">

@@ -47,8 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::get('add-to-log', [HomeController::class, 'myTestAddToLog'])->name('add-to-log');
     Route::get('logActivity', [HomeController::class, 'logActivity'])->name('logActivity');
             
-    Route::prefix('blog')->group(function () {      
-                    //url                                       //route
+    Route::prefix('blog')->group(function () {                        
         Route::get('/', [PostController::class, 'index'])->name('post.index');
         Route::get('create', [PostController::class, 'create'])->name('post.create');
         Route::post('/', [PostController::class, 'store'])->name('post.store');
@@ -62,6 +61,8 @@ Route::middleware('auth')->group(function () {
         Route::post('blog-comment', [CommentController::class, 'store'])->name('blog-comment');
     }); 
 
+
+
     //author       
      Route::prefix('author')->group(function () {
         Route::get('/', [AuthorController::class, 'index'])->name('author.index');
@@ -70,13 +71,20 @@ Route::middleware('auth')->group(function () {
         Route::get('{author}', [AuthorController::class, 'show'])->name('author.show');
         Route::get('{author}/edit', [AuthorController::class, 'edit'])->name('author.edit');
         Route::put('{author}', [AuthorController::class, 'update'])->name('author.update');
-        Route::delete('/', [AuthorController::class, 'destroy'])->name('author.destroy');
+        Route::delete('{author}/destroy', [AuthorController::class, 'destroy'])->name('author.destroy');
     });
 
     //book
     Route::prefix('book')->group(function () {
+        Route::get('/', [BookController::class, 'index'])->name('book.index');
+        Route::get('create', [BookController::class, 'create'])->name('book.create');
         Route::post('/', [BookController::class, 'store'])->name('book.store');
         Route::get('{book}', [BookController::class, 'show'])->name('book.show');
+        Route::get('{book}/edit', [BookController::class, 'edit'])->name('book.edit');
+        Route::put('{book}', [BookController::class, 'update'])->name('book.update');
+        Route::delete('{book}/destroy', [BookController::class, 'destroy'])->name('book.destroy');
+        Route::get('{author_id}/addbook', [BookController::class, 'addbook'])->name('book.addbook');
+        Route::post('storebook', [BookController::class, 'storebook'])->name('book.storebook'); //specify route else store undifind
     });
 
     //rate

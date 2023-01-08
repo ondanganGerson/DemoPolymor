@@ -41,7 +41,7 @@ class RetingsController extends Controller
             'book_id' => $request->input('book_id')
         ]);
 
-        return redirect()->route('author.index')->with('rate', 'Book has been successfully rated!');
+        return redirect()->route('book.index')->with('rate', 'Book has been successfully rated!');
     }
 
     /**

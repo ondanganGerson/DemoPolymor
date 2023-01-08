@@ -1,11 +1,10 @@
 <x-app-layout>
-    <br><br>
     <div class="container-fluid mt-5"> 
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Add Books</h3>
+                            <h3 class="card-title">Book</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body"> 
@@ -19,20 +18,20 @@
                                     </ul>
                                 </div>
                             @endif
-                            <div class="form-group">
-                                <p>Author's Name: {{$author->name}}</p>
-                            </div>
-                            <form action="{{ route('book.store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('book.update', $books->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                                <div class="form-group">                                  
-                                    <input type="hidden" class="form-control" name="author_id" value="{{$author->id}}">
+                            @method('PUT')
+                                <div class="form-group">                           
+                                    <label for="title"><i class="text-danger">*</i>Author's Name:</label>
+                                    <input type="text" class="form-control" name="author" value="{{old('name') ?? $books->getAuthor->name}}" required/>
+                                    <input type="hidden" class="form-control" name="author_id" value="{{old('author_id') ?? $books->author_id}}" />
                                 </div>
                                 <div class="form-group">                           
-                                    <label for="title"><i class="text-danger">*</i>Book:</label>
-                                    <input type="text" placeholder="Book's Name" class="form-control" name="name" required/>
+                                    <label for="title"><i class="text-danger">*</i>Book Title:</label>
+                                    <input type="text" class="form-control" name="name" value="{{old('name') ?? $books->name}}" required/>
                                 </div>
                                 <button type="submit" class="btn btn-primary float-left">Save</button>
-                                <a type="button" href="{{ route('author.index') }}" class="btn btn-danger float-right">Cancel</a>
+                                <a type="button" href="{{ route('book.index') }}" class="btn btn-danger float-right">Cancel</a>
                             </form>                            
                         </div>
                         <!-- /.card-body -->

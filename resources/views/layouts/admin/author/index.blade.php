@@ -79,7 +79,7 @@
                                 @isset(array_merge(...$authors['get_books'])['id'])      
                                   <a href="{{ route('book.show', array_merge(...$authors['get_books'])['id']) }}" title="Rate Books" class="btn btn-warning"> <i class="fas fa-star"></i></a>
                                 @else
-                                  <a href="" title="Rate Books" class="btn btn-warning"> <i class="fas fa-star"></i></a>
+                                  <a href="#" title="Rate Books" class="btn btn-warning" disabled> <i class="fas fa-star"></i></a>
                                 @endisset                                        
                                 <a href="{{route('author.show', $authors['id'])}}" title="Add Books" class="btn btn-primary"> <i class="fas fa-book"></i></a>
                                 <a href="{{route('author.edit', $authors['id'])}}" title="Edit" class="btn btn-info"> <i class="fas fa-edit"></i> </a>
