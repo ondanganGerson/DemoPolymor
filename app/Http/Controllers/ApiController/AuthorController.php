@@ -39,8 +39,14 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        $storeAuthor = Author::create($request->all());
-        return response()->json($storeAuthor,200);
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        // $storeAuthor = Author::create($request->all());
+        return Author::create($request->all());
+
+        // return response()->json($storeAuthor,200);
     }
 
     /**

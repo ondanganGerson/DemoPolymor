@@ -202,6 +202,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{route('book.index')}}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Books</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{route('author.index')}}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Authors Books</p>
